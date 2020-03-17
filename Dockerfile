@@ -52,10 +52,10 @@ WORKDIR /opt/www
 # RUN composer install --no-dev
 
 COPY . /opt/www
-RUN composer install --no-dev \
+RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com  \
+    && composer install --no-dev \
     && composer dump-autoload -o \
     && composer init-proxy
-
 EXPOSE 9501
 
 ENTRYPOINT ["php", "/opt/www/bin/hyperf.php", "start"]
